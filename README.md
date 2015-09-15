@@ -4,7 +4,7 @@ The military intranet used in the Real-Life L4D of the COIN 2015
 ## Install
 The server has been developped and tested with Python2.7. The compatibility with Python3 isn't guarentee.
 
-Start by install the python and related tools:
+Start by installing python and related tools:
 ```bash
 $ sudo apt-get install python virtualenv pip
 ```
