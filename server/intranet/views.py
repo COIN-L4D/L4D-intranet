@@ -54,3 +54,6 @@ class PageView(IntranetBaseView):
             return render(request, self.page.template_file)
         else:
             return redirect('denied')
+
+class AdminView(TemplateView):
+    template_name = 'intranet/admin.html'
