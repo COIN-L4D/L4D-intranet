@@ -10,11 +10,11 @@ class Manager:
     @property
     def current_game(self):
         def get_current_game():
-            tuple_ = CurrentGame.objects.get_or_create(defaults={
+            game, created = CurrentGame.objects.get_or_create(defaults={
                 'state': CurrentGame.STOP,
                 'start_datetime': now(),
             })
-            return tuple_[0]
+            return game
 
         if self._current_game is None:
             self._current_game = get_current_game()
