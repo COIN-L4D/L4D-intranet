@@ -1,18 +1,10 @@
 from django.shortcuts import redirect, get_object_or_404, render
 from django.views.generic import TemplateView, View
 from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required
 import json
 
 from .models import Page, CurrentGame, VisiblePage
 from .game import Manager
-
-
-class LoginRequiredMixin(object):
-    @classmethod
-    def as_view(cls, **initkwargs):
-        view = super(LoginRequiredMixin, cls).as_view(**initkwargs)
-        return login_required(view)
 
 class ClosedView(TemplateView):
 
@@ -62,6 +54,3 @@ class PageView(IntranetBaseView):
             return render(request, self.page.template_file)
         else:
             return redirect('denied')
-
-class AdminView(LoginRequiredMixin, TemplateView):
-    template_name = 'intranet/admin.html'
