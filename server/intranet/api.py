@@ -96,28 +96,41 @@ class TryPasswordAPI(BaseInGameApi):
             'error_info': 'invalid request: ' + error_info,
         }
 
-class BaseGameAPI(View):
+
+class StatusAPI(View):
+    """ This api returns the status of the current game """
+
+    def get(self, request, *args, **kwargs):
+        current_game = Manager().current_game
+        response_object = {
+            'state': current_game.get_state_display(),
+            'start_datetime': current_game.start_datetime.strftime('%x %X'),
+        }
+        response_json = json.dumps(response_object)
+        return HttpResponse(response_json, content_type='application/json')
+
+class BaseGamePostAPI(View):
     def get(self, request, *args, **kwargs):
         """ Forward GET to POST (for testing purpose) """
         request.POST = request.GET
         return self.post(request, *args, **kwargs)
 
-class StartAPI(BaseGameAPI):
+class StartAPI(BaseGamePostAPI):
     def post(self, request):
         Manager().start()
         return HttpResponse('')
 
-class StopAPI(BaseGameAPI):
+class StopAPI(BaseGamePostAPI):
     def post(self, request):
         Manager().stop()
         return HttpResponse('')
 
-class PauseAPI(BaseGameAPI):
+class PauseAPI(BaseGamePostAPI):
     def post(self, request):
         Manager().pause()
         return HttpResponse('')
 
-class RestartAPI(BaseGameAPI):
+class RestartAPI(BaseGamePostAPI):
     def post(self, request):
         Manager().restart()
         return HttpResponse('')

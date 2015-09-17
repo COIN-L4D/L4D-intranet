@@ -6,7 +6,7 @@ from intranet.views import (
 
 from intranet.api import (
     StartAPI, PauseAPI, StopAPI, RestartAPI,
-    MenuAPI, TryPasswordAPI
+    MenuAPI, TryPasswordAPI, StatusAPI
 )
 
 urlpatterns = [
@@ -14,6 +14,8 @@ urlpatterns = [
     url('^api/pause$', PauseAPI.as_view(), name='pause'),
     url('^api/stop$', StopAPI.as_view(), name='stop'),
     url('^api/restart$', RestartAPI.as_view(), name='restart'),
+    url('^api/status$', StatusAPI.as_view(), name='status'),
+
 
     url('^api/menu$', MenuAPI.as_view(), name='menu'),
     url('^api/try$', TryPasswordAPI.as_view(), name='try'),
