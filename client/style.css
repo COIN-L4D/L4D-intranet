@@ -1,0 +1,21 @@
+body {
+	background-color: black;
+	color: green;
+}
+
+input {
+	background-color: black;
+	color: green;
+	border: none;
+	width: 90%;
+	outline: none;
+}
+
+iframe {
+	width: 100%;
+	height: 90%;
+}
+
+#content {
+	
+}
