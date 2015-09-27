@@ -6,7 +6,7 @@ import json
 from .models import Page, VisiblePage, PagePassword
 from .game import Manager
 
-class BaseInGameApi(View):
+class BaseInGameAPI(View):
 
     def game_is_close(self):
         response_object = {
@@ -19,9 +19,9 @@ class BaseInGameApi(View):
     def dispatch(self, *args, **kwargs):
         if not Manager().is_started():
             return self.game_is_close()
-        return super(BaseInGameApi, self).dispatch(*args, **kwargs)
+        return super(BaseInGameAPI, self).dispatch(*args, **kwargs)
 
-class MenuAPI(BaseInGameApi):
+class MenuAPI(BaseInGameAPI):
 
     @staticmethod
     def prepare_page(page):
@@ -57,7 +57,7 @@ class MenuAPI(BaseInGameApi):
         response_json = json.dumps(response_object)
         return HttpResponse(response_json, content_type='application/json')
 
-class TryPasswordAPI(BaseInGameApi):
+class TryPasswordAPI(BaseInGameAPI):
     """ This api try to unlock any page by entering a password """
 
     def get(self, request, *args, **kwargs):
