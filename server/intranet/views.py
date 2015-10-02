@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, get_object_or_404, render
 from django.views.generic import TemplateView, View
 from django.http import HttpResponse
+from django.views.decorators.clickjacking import xframe_options_exempt
 import json
 
 from .models import Page, CurrentGame, VisiblePage
@@ -46,6 +47,10 @@ class PageView(IntranetBaseView):
             return True
         except VisiblePage.DoesNotExist:
             return False
+
+    @xframe_options_exempt
+    def dispatch(self, request, *args, **kwargs):
+        return super(PageView, self).dispatch(request,*args,**kwargs)
 
     def get(self, request, *args, **kwargs):
         self.fetch_url_name(**kwargs)
