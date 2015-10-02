@@ -16,7 +16,9 @@ class GetMapEventsAPI(BaseInGameAPI):
                 'lng': event.lng,
             },
             'datetime': event.datetime.isoformat(),
-            'text': event.text,
+            'title': event.title,
+            'description': event.description,
+            'type': event.event_type,
         }
 
     def get(self, request):
@@ -48,9 +50,12 @@ class PushMapEventAPI(LoginRequiredMixin, BaseInGameAPI):
         }
 
     def parse_post(self, POST):
+
+        arg_dict = {}
+
         if POST.has_key('lat'):
             try:
-                lat = float(POST['lat'])
+                arg_dict['lat'] = float(POST['lat'])
             except ValueError:
                 return invalid_request("variable 'lat' is not a float")
         else:
@@ -58,24 +63,27 @@ class PushMapEventAPI(LoginRequiredMixin, BaseInGameAPI):
 
         if POST.has_key('lng'):
             try:
-                lng = float(POST['lng'])
+                arg_dict['lng'] = float(POST['lng'])
             except ValueError:
                 return invalid_request("variable 'lng' is not a float")
         else:
             return invalid_request("missing variable 'lng'")
 
-        if POST.has_key('text'):
-            text = POST['text']
-        else:
-            return invalid_request("missing variable 'text'")
+        for arg in ('title', 'description', 'type'):
+            if POST.has_key(arg):
+                arg_dict[arg] = POST[arg]
+            else:
+                return invalid_request("missing variable '%s'" % arg)
 
-        return self.process_event(lat=lat, lng=lng, text=text)
+        return self.process_event(**arg_dict)
 
     def process_event(self, **kwargs):
         event = MapEvent(
             lat=kwargs['lat'],
             lng=kwargs['lng'],
-            text=kwargs['text'],
+            title=kwargs['title'],
+            description=kwargs['description'],
+            event_type=kwargs['type']
         )
         event.save()
         return { 'error': False, }

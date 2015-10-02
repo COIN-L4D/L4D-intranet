@@ -20,12 +20,14 @@ class MapSettings(models.Model):
 class MapEvent(models.Model):
     """ Model for an event on the map """
     datetime = models.DateTimeField(auto_now_add=True)
-    text = models.TextField()
+    title = models.TextField()
+    description = models.TextField()
     lat = models.FloatField()
     lng = models.FloatField()
+    event_type = models.TextField();
 
     def __str__(self):
-        return self.text
+        return self.title
 
     def __unicode__(self):
         return self.__str__()
