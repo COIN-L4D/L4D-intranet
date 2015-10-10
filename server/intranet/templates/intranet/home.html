@@ -1,1 +1,30 @@
-<p>Home</p>
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+  <meta charset="utf-8" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{% static 'intranet/vendors/jquery-ui.min.css' %}">
+  <script src="{% static 'intranet/vendors/jquery-ui.min.js' %}"></script>
+  <script src="{% static 'intranet/js/script.js' %}"></script>
+  <link rel="stylesheet" type='text/css' href="{% static 'intranet/css/style.css' %}">
+
+  <title>L4D Hacker</title>
+</head>
+
+<body>
+  <div id="terminal">
+    <div id="content"></div>
+    h4kers@cia.confidential $ <input type="text" id="prompt" />
+  </div>
+
+
+  <div id="dialogs">
+
+  </div>
+</body>
+
+</html>
