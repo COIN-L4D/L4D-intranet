@@ -8,4 +8,4 @@ class LoginRequiredMixin(object):
         return login_required(view)
 
 class AdminView(LoginRequiredMixin, TemplateView):
-    template_name = 'intranet/admin.html'
+    template_name = 'gameadmin/admin.html'

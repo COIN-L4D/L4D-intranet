@@ -1,0 +1,5 @@
+#map-box, #game-state-box, #notifs-box {
+  border: solid 1px;
+  margin: 20px;
+  padding: 10px;
+}
