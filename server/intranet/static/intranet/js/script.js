@@ -1,6 +1,6 @@
 (function(){
-	var nbDialogs;
-	var pages;
+	var nbDialogs = 0;
+	var pages = [];
 	var ENDPOINT = "";
 
 
@@ -47,6 +47,7 @@
 		commands["help"] = commandHelp;
 		commands["open"] = commandOpen;
 		commands["menu"] = commandMenu;
+		commands["password"] = commandPassword;
 
 		if(commands[command.name]) {
 			commands[command.name](command.parameters);
@@ -61,7 +62,7 @@
 	}
 
 	function commandMenu() {
-		println("Liste des menus accessibles : ");
+		println("Liste des pages dévérouillées");
 		for(var i = 0 ; i < pages.length ; i++) {
 			println("* - " + pages[i].name);
 		}
@@ -69,8 +70,9 @@
 
 	function commandHelp() {
 		println("Voici la liste des commandes disponibles : ");
-		println(' - Tapez "menu" pour afficher la liste des pages disponible.');
-		println(' - Tapez "open" puis le nom de la page pour ouvrir une nouvelle fenêtre.');
+		println(' - Tapez "menu" pour afficher la liste des pages dévérouillées.');
+		println(" - Tapez \"open\" suivi du nom d'une page pour y accéder.");
+		println(" - Tapez \"passsword\" suivi d'un mot de passe pour tenter de hacker une page.");
 	}
 
 	function commandOpen(pageName) {
@@ -85,8 +87,33 @@
 			nbDialogs++;
 			setFocusPrompt();
 		} else {
-			println("Aucune page de ce nom à afficher.");
+			println("ERROR: PERMISSION DENIED");
 		}
+	}
+
+	function commandPassword(password){
+		var xhr = new XMLHttpRequest();
+
+		if (typeof password == "undefined" || password.length == 0){
+			println("ERROR: PASSWORD REQUIRED")
+			return ;
+		}
+
+		xhr.onload = function(e){
+			if (xhr.readyState == xhr.DONE && xhr.status == 200){
+				var response = JSON.parse(xhr.responseText);
+				if (response.granted == true){
+					println("ACCESS GRANTED: " + response.page.name)
+					println('Tapez "open ' + response.page.name + '" pour ouvrir cette nouvelle page')
+				}
+				else {
+					println("ERROR: ACCESS DENIED")
+				}
+			}
+		}
+
+		xhr.open("GET", "/api/try?password="+password);
+		xhr.send(null);
 	}
 
 	function println(line) {
@@ -99,9 +126,10 @@
 
 	$(document).ready(function() {
 
-		var nbDialogs = 0;
+		nbDialogs = 0;
 
 		refreshPages();
+		setInterval(refreshPages, 5000);
 
 		$('#prompt').keypress(onEnterPrompt);
 		$(window).click(setFocusPrompt);
