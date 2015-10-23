@@ -5,6 +5,11 @@
   <meta charset="utf-8" />
   <title>L4D Admin</title>
   <link rel="stylesheet" href="{% static 'gameadmin/css/style.css '%}">
+
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.js'></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'map/css/adminMap.css' %}">
+  <link href='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.css' rel='stylesheet' />
 </head>
 <body>
 
@@ -24,9 +29,28 @@
   </div>
 
   <div id='map-box'>
-    THE MAP WILL BE HERE
+    <div id='coord'></div>
+    <div id='map'></div>
+    <div id='content'>
+
+      <h3>creer un nouveau marqueur</h3>
+      <div id="form">
+        <ul>
+          <li><p>Titre : <input id="event-title" type="text" name="title" /></p></li>
+          <li><p>Description : <textarea id="event-description" type="text" name="description" ></textarea></p></li>
+          <li><p>Type :  <select name="type">
+            <option value="danger">Danger</option>
+            <option value="camp">Camp</option>
+            <option value="medic">Medic</option>
+            <option value="caisse">Caisse</option>
+          </select></p></li>
+          <li><p>    <button id="button">envoyer</button></p></li>
+        </ul>
+      </div>
+    </div>
   </div>
 
   <script src="{% static 'gameadmin/js/controller.js' %}"></script>
+  <script src="{% static 'map/js/adminMap.js' %}"></script>
 </body>
 </html>
