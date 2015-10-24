@@ -62,17 +62,22 @@
 	}
 
 	function commandMenu() {
-		println("Liste des pages dévérouillées");
-		for(var i = 0 ; i < pages.length ; i++) {
-			println("* - " + pages[i].name);
+		if (pages.length == 0){
+			println("Toutes les pages sont verouillées.")
+		}
+		else {
+			println("Liste des pages dévérouillées:");
+			for(var i = 0 ; i < pages.length ; i++) {
+				println("   - " + pages[i].name);
+			}
 		}
 	}
 
 	function commandHelp() {
 		println("Voici la liste des commandes disponibles : ");
-		println(' - Tapez "menu" pour afficher la liste des pages dévérouillées.');
-		println(" - Tapez \"open\" suivi du nom d'une page pour y accéder.");
-		println(" - Tapez \"passsword\" suivi d'un mot de passe pour tenter de hacker une page.");
+		println('   - Tapez "menu" pour afficher la liste des pages dévérouillées.');
+		println("   - Tapez \"open\" suivi du nom d'une page pour y accéder.");
+		println("   - Tapez \"password\" suivi d'un mot de passe pour tenter de hacker une page.");
 	}
 
 	function commandOpen(pageName) {
@@ -133,6 +138,7 @@
 
 		$('#prompt').keypress(onEnterPrompt);
 		$(window).click(setFocusPrompt);
+		setFocusPrompt();
 
 	});
 })()
