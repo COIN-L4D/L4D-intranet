@@ -24,29 +24,35 @@ setInterval(function (){
 
 
 function type_to_desc(type){
-    if(type == "danger")
+    if(type == "mutagene")
 	return {
 	    size: 'large',
-	    color: '#D10606',
-	    symbol: 'danger'
+	    color: '#10C200',
+	    symbol: 'chemist'
 	};
-    else if(type == "medic")
+    else if(type == "arme")
 	return {
 	    size: 'large',
-            color: '#FFFFFF',
-            symbol: 'hospital'
+            color: '#DE0F04',
+            symbol: 'logging'
 	};
-    else if(type == "camp")
+    else if(type == "pc")
 	return {
 	    size: 'large',
-            color: '#095C05',
+            color: '#7A726E',
             symbol: 'embassy'
 	};
-    else if(type == "caisse")
+    else if(type == "potion")
 	return {
 	    size: 'large',
-            color: '#4A3003',
-            symbol: 'gift'
+            color: '#f1f075',
+            symbol: 'hospital'
+	};
+    else if(type == "info")
+	return {
+	    size: 'large',
+            color: '#1087bf',
+            symbol: 'post'
 	};
     
 }
