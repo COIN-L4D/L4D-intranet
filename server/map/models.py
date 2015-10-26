@@ -31,3 +31,7 @@ class MapEvent(models.Model):
 
     def __unicode__(self):
         return self.__str__()
+
+    @staticmethod
+    def delete_everything():
+        MapEvent.objects.all().delete()

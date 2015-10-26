@@ -1,6 +1,7 @@
 from django.utils.timezone import now
 
 from .models import CurrentGame, VisiblePage, Page
+from map.models import MapEvent
 
 class Manager:
 
@@ -30,12 +31,14 @@ class Manager:
             if self.current_game.state != CurrentGame.PAUSE:
                 self.current_game.start_datetime = now()
                 reset_current_visible_pages()
+                MapEvent.delete_everything()
             self.current_game.state = CurrentGame.RUN
             self.current_game.save()
 
     def stop(self):
         self.current_game.state = CurrentGame.STOP
         self.current_game.save()
+        MapEvent.delete_everything()
 
     def pause(self):
         if self.current_game.state != CurrentGame.STOP:
