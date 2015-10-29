@@ -13,7 +13,7 @@ class BaseInGameAPI(View):
             'error': True,
             'error_info': 'the game is closed',
         }
-        response_json = json.dumps(response&_object)
+        response_json = json.dumps(response_object)
         return HttpResponse(response_json, content_type='application/json')
 
     def dispatch(self, *args, **kwargs):
